@@ -54,7 +54,7 @@ public class ZonaFitApplication implements CommandLineRunner {
 			5. Eliminar Cliente
 			6. Salir
 			Elige una opción:\s
-				""");
+			""");
 
 		return Integer.parseInt(consola.nextLine());
 	}
