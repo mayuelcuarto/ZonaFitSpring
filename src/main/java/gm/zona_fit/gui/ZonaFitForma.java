@@ -1,11 +1,11 @@
 package gm.zona_fit.gui;
 
-import gm.zona_fit.servicio.ClienteServicio;
 import gm.zona_fit.servicio.IClienteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
+import jakarta.annotation.PostConstruct;
 
 @Component
 public class ZonaFitForma extends JFrame{
@@ -13,15 +13,21 @@ public class ZonaFitForma extends JFrame{
     IClienteServicio clienteServicio;
 
     @Autowired
-    public ZonaFitForma(ClienteServicio clienteServicio){
+    public ZonaFitForma(IClienteServicio clienteServicio) {
         this.clienteServicio = clienteServicio;
         iniciarForma();
     }
 
-    private void iniciarForma(){
+    @PostConstruct
+    public void iniciarForma() {
+        if (panelPrincipal == null) {
+            // Parche de seguridad por si el diseñador visual no instanció el panel a tiempo
+            panelPrincipal = new JPanel();
+        }
         setContentPane(panelPrincipal);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900, 700);
-        setLocationRelativeTo(null);//centra la ventana
+        setLocationRelativeTo(null); // Centra la ventana en pantalla
+        setVisible(false); // Hace visible tu ventana de Zona Fit
     }
 }
